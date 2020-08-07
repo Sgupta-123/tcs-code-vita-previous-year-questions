@@ -1,37 +1,58 @@
-## Welcome to GitHub Pages
+Problem Description
+Question -: A positive integer d is said to be a factor of another positive integer N if when N is divided by d, the remainder obtained is zero. For example, for number 12, there are 6 factors 1, 2, 3, 4, 6, 12. Every positive integer k has at least two factors, 1 and the number k itself.Given two positive integers N and k, write a program to print the kth largest factor of N.
 
-You can use the [editor on GitHub](https://github.com/Sgupta-123/tcs-code-vita-previous-year-questions/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Input Format: The input is a comma-separated list of positive integer pairs (N, k).
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Output Format: The kth highest factor of N. If N does not have k factors, the output should be 1.
 
-### Markdown
+Constraints:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+1<N<10000000000
+1<k<600.
+You can assume that N will have no prime factors which are larger than 13.
 
-```markdown
-Syntax highlighted code block
+Example 1
 
-# Header 1
-## Header 2
-### Header 3
+Input: 12,3
+Output: 4
+Explanation: N is 12, k is 3. The factors of 12 are (1,2,3,4,6,12). The highest factor is 12 and the third largest factor is 4. The output must be 4.
 
-- Bulleted
-- List
+Example 2
 
-1. Numbered
-2. List
+Input: 30,9
+Output: 1
+Explanation: N is 30, k is 9. The factors of 30 are (1,2,3,5,6,10,15,30). There are only 8 factors. As k is more than the number of factors, the output is 1.
 
-**Bold** and _Italic_ and `Code` text
 
-[Link](url) and ![Image](src)
-```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+SOLUTION------->
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Sgupta-123/tcs-code-vita-previous-year-questions/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    long long int n,k;
+    cin>>n>>k;
+    vector<long long int> v;
+    for(int i = 1; i <= sqrt(n); ++i)
+    {
+        if(n % i == 0)
+            {
+                if(n/i==i)
+                v.push_back(i);
+                else
+                {
+                    v.push_back(n/i);
+                    v.push_back(i);
+                }
+            }
+    }
+    sort(v.begin(),v.end(),greater<int>());
+    if(k>v.size())
+    cout<<"1";
+    else 
+    cout<<v[k-1];
+
+}
